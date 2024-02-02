@@ -1,5 +1,7 @@
 import random
 
+# it's independ module, not part of main.py
+
 while True:
     a = int(input(":"))
     if a != 0:
