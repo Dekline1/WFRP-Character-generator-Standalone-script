@@ -1,6 +1,6 @@
 import random
 
-# it's independ module, not part of main.py
+# it's independent module, not part of main.py
 
 while True:
     a = int(input(":"))
