@@ -7,19 +7,21 @@ def wait_a_moment(times=2):
     for _ in range(times):
         time.sleep(0.25)
 
+def repeat():
+    repeat = input("Repeat?").strip().lower()
+    return repeat in ("tak", "t", "yes", "y")
+
 
 def random_humanoid():
-    howmany = int(input("How many characters do you need?"))
-    language = str(input("Should we use ENG or Pl name of parameters?"))
-    for _ in range(howmany):
-        randomHumanoid = classes.RandomHumanoid(language)
-        print(randomHumanoid)
-    repeat = str(input("Repeat?"))
-    if repeat in ("Tak", "tak", "t", "Yes", "yes", "y"):
-        random_humanoid()
-    else:
-        wait_a_moment()
-        main_menu()
+    while True:
+        howmany = int(input("How many characters do you need?"))
+        language = str(input("Should we use ENG or Pl name of parameters?"))
+        for _ in range(howmany):
+            randomHumanoid = classes.RandomHumanoid(language)
+            print(randomHumanoid)
+        if not repeat():
+            wait_a_moment()
+            break
 
 
 def step_humanoid_race():
@@ -126,23 +128,20 @@ def step_humanoid_classMainStats(characterClass):
 
 
 def step_humanoid(bust="False"):
-    race = step_humanoid_race()
-    name = step_humanoid_name()
-    characterClass = step_humanoid_class()
-    classMainStats = step_humanoid_classMainStats(characterClass)
-    language = str(input("Should we use ENG or Pl name of parameters?"))
-    howmany = int(input("How many characters do you need?"))
-    for _ in range(howmany):
-        stepHumanoid = classes.StepHumanoid(race, name, characterClass,
-                                            classMainStats, language, bust)
-        print(stepHumanoid)
-
-    repeat = str(input("Repeat?"))
-    if repeat in ("Tak", "tak", "t", "Yes", "yes", "y"):
-        step_humanoid()
-    else:
-        wait_a_moment()
-        main_menu()
+    while True:
+        race = step_humanoid_race()
+        name = step_humanoid_name()
+        characterClass = step_humanoid_class()
+        classMainStats = step_humanoid_classMainStats(characterClass)
+        language = str(input("Should we use ENG or Pl name of parameters?"))
+        howmany = int(input("How many characters do you need?"))
+        for _ in range(howmany):
+            stepHumanoid = classes.StepHumanoid(race, name, characterClass,
+                                                classMainStats, language, bust)
+            print(stepHumanoid)
+        if not repeat():
+            wait_a_moment()
+            break
 
 
 def main_menu():
