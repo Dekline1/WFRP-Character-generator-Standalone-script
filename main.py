@@ -146,35 +146,36 @@ def step_humanoid(bust="False"):
 
 
 def main_menu():
-    mainMenu = ["Create humanoid - step by step ", "Create humanoid - random",
-                "Create busted humanoid - step by step", "Create double-busted humanoid - step by step",
-                "Create triple-busted humanoid - step by step", "Exit"]
+    while True:
+        mainMenu = ["Create humanoid - step by step ", "Create humanoid - random",
+                    "Create busted humanoid - step by step", "Create double-busted humanoid - step by step",
+                    "Create triple-busted humanoid - step by step", "Exit"]
 
-    choiceMainMenu = int(input(f"""What would you do?:
-    1. {mainMenu[0]} 
-    2. {mainMenu[1]}
-    3. {mainMenu[2]}
-    4. {mainMenu[3]}
-    5. {mainMenu[4]}
-    6. {mainMenu[5]}
-    """))
+        choiceMainMenu = int(input(f"""What would you do?:
+        1. {mainMenu[0]} 
+        2. {mainMenu[1]}
+        3. {mainMenu[2]}
+        4. {mainMenu[3]}
+        5. {mainMenu[4]}
+        6. {mainMenu[5]}
+        """))
 
-    if (choiceMainMenu == 1):
-        step_humanoid()
-    elif (choiceMainMenu == 2):
-        random_humanoid()
-    elif (choiceMainMenu == 3):
-        step_humanoid(bust=1)
-    elif (choiceMainMenu == 4):
-        step_humanoid(bust=2)
-    elif (choiceMainMenu == 5):
-        step_humanoid(bust=3)
-    elif (choiceMainMenu == 6):
-        exit()
-    else:
-        print("Please choose 1-6 option")
-        wait_a_moment()
-        main_menu()
+        if (choiceMainMenu == 1):
+            step_humanoid()
+        elif (choiceMainMenu == 2):
+            random_humanoid()
+        elif (choiceMainMenu == 3):
+            step_humanoid(bust=1)
+        elif (choiceMainMenu == 4):
+            step_humanoid(bust=2)
+        elif (choiceMainMenu == 5):
+            step_humanoid(bust=3)
+        elif (choiceMainMenu == 6):
+            break
+        else:
+            print("Please choose 1-6 option")
+            wait_a_moment()
+            continue
 
 
 print("""Welcome in WFRP 2ed character generator
