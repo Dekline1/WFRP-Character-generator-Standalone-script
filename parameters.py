@@ -1,3 +1,14 @@
+welcomeText = """Welcome in WFRP 2ed character generator
+This app helps you generate all playable characters. 
+You can do it step by step, or make it totally random,
+according to WFRP base handbook. 
+"""
+
+
+mainMenu = ["Create humanoid - step by step ", "Create humanoid - random",
+            "Create busted humanoid - step by step", "Create double-busted humanoid - step by step",
+            "Create triple-busted humanoid - step by step", "Exit"]
+
 humanoidRacesStats = {
     "Human": {
         "race": "Human",
@@ -128,6 +139,11 @@ busters = {
 
 bustersMainStats = [15, 30, 40]
 bustersOtherStats = [5, 10, 15]
+
+
+
+
+
 
 """
 

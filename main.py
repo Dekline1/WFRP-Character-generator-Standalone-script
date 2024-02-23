@@ -146,17 +146,13 @@ def step_humanoid(bust="False"):
 
 def main_menu():
     while True:
-        mainMenu = ["Create humanoid - step by step ", "Create humanoid - random",
-                    "Create busted humanoid - step by step", "Create double-busted humanoid - step by step",
-                    "Create triple-busted humanoid - step by step", "Exit"]
-
         choiceMainMenu = int(input(f"""What would you do?:
-        1. {mainMenu[0]} 
-        2. {mainMenu[1]}
-        3. {mainMenu[2]}
-        4. {mainMenu[3]}
-        5. {mainMenu[4]}
-        6. {mainMenu[5]}
+        1. {parameters.mainMenu[0]} 
+        2. {parameters.mainMenu[1]}
+        3. {parameters.mainMenu[2]}
+        4. {parameters.mainMenu[3]}
+        5. {parameters.mainMenu[4]}
+        6. {parameters.mainMenu[5]}
         """))
 
         if (choiceMainMenu == 1):
@@ -177,10 +173,6 @@ def main_menu():
             continue
 
 
-print("""Welcome in WFRP 2ed character generator
-This app helps you generate all playable characters. 
-You can do it step by step, or make it totally random,
-according to WFRP base handbook. 
-""")
+print(parameters.welcomeText)
 
 main_menu()
