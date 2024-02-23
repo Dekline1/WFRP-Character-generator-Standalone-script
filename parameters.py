@@ -5,9 +5,12 @@ according to WFRP base handbook.
 """
 
 
-mainMenu = ["Create humanoid - step by step ", "Create humanoid - random",
-            "Create busted humanoid - step by step", "Create double-busted humanoid - step by step",
-            "Create triple-busted humanoid - step by step", "Exit"]
+mainMenu = ["Create humanoid - step by step ",
+            "Create humanoid - random",
+            "Create busted humanoid - step by step",
+            "Create double-busted humanoid - step by step",
+            "Create triple-busted humanoid - step by step",
+            "Exit"]
 
 humanoidRacesStats = {
     "Human": {

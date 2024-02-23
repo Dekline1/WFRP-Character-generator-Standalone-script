@@ -11,6 +11,7 @@ class RandomHumanoid:
             [parameters.humanoidRacesStats["Human"]["race"], parameters.humanoidRacesStats["Elf"]["race"],
              parameters.humanoidRacesStats["Dwarf"]["race"], parameters.humanoidRacesStats["Halfing"]["race"]])
         self.self_name()
+        self.simpleId = self.simple_id()
         for stat in ["ws", "bs", "s", "t", "ag", "int", "wp", "fel"]:
             setattr(self, stat, parameters.humanoidRacesStats[self.race][stat] + self.generate_main_stat_random())
         self.a = parameters.humanoidRacesStats[self.race]["a"]
@@ -55,13 +56,19 @@ class RandomHumanoid:
                     f"Main characteristics: ws:{self.ws}, bs:{self.bs}, s:{self.s}, t:{self.t},"
                     f"ag:{self.ag}, int:{self.int}, wp:{self.wp}, fel:{self.fel}\n"
                     f"Second characteristics: a:{self.a}, w:{self.w}, sb:{self.sb}, tb:{self.tb},"
-                    f" m:{self.m}, mag:{self.mag}, ip:{self.ip}, fp:{self.fp}\n")
+                    f" m:{self.m}, mag:{self.mag}, ip:{self.ip}, fp:{self.fp}\n"
+                    f" id:{self.simpleId}")
         else:
             return (f"Twój losowy humanoid to: {self.race}, {self.firstName} {self.lastName}, \n"
                     f"Cechy główne: ww:{self.ws}, us:{self.bs}, k:{self.s}, odp:{self.t},"
                     f"zr:{self.ag}, int:{self.int}, sw:{self.wp}, ogd:{self.fel}\n"
                     f"Cechy drugorzędne: a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb},"
-                    f" sz:{self.m}, mag:{self.mag}, po:{self.ip}, p:{self.fp}\n")
+                    f" sz:{self.m}, mag:{self.mag}, po:{self.ip}, p:{self.fp}\n"
+                    f" id:{self.simpleId}")
+
+    def simple_id(self):
+        self.simpleId = ''.join([self.firstName[:3], self.race[:3], str(id(self))[:3]])
+        return self.simpleId
 
 
 class StepHumanoid:
