@@ -1,21 +1,76 @@
 import time
 import classes
 import parameters
+from Levenshtein import distance as levenshtein
+import json
 
 
 def wait_a_moment(times=2):
     for _ in range(times):
         time.sleep(0.25)
 
+
 def repeat():
     repeat = input("Repeat?").strip().lower()
     return repeat in ("tak", "t", "yes", "y")
 
 
+def show_results():
+    try:
+        if not classes.RandomHumanoid.instances:
+            print("No data in Random Humanoid instances")
+        else:
+            for key, value in classes.RandomHumanoid.instances.items():
+                print(key + ": " + ", ".join(map(str, value)))
+    except AttributeError:
+        print("No definition in Random Humanoid instances")
+
+    try:
+        if not classes.StepHumanoid.instances:
+            print("No data in Step Humanoid instances")
+        else:
+            for key, value in classes.StepHumanoid.instances.items():
+                print(key + ": " + ", ".join(map(str, value)))
+    except AttributeError:
+        print("No definition in Step Humanoid instances")
+
+
+def save_to_file():
+    globalInstances = classes.RandomHumanoid.instances.copy()
+    globalInstances.update(classes.StepHumanoid.instances)
+
+
+    print("Chosen character will be save in *.txt file")
+    show_results()
+    wait_a_moment()
+    choice = str(input("Type [id] or save [a]: "))
+    if choice.lower() != "a":
+        bestMatch = check_id(choice, globalInstances)
+        value = globalInstances[bestMatch]
+        print("You wrote: " + bestMatch + ": " + ", ".join(map(str, value)))
+
+        with open("Characters.txt", 'a+') as file:
+            json.dump((bestMatch + ": " + ", ".join(map(str, value))), file)
+            file.write("\n")
+
+    else:
+        with open("Characters.txt", 'a+') as file:
+            for key, value in globalInstances.items():
+                json.dump((key + ": " + ", ".join(map(str, value))), file)
+                file.write('\n')
+
+
+def check_id(choice, globalInstances):
+    levenshteinDict = {}
+    for key, value in globalInstances.items():
+        levenshteinDict[key] = (levenshtein(key.lower(), choice.lower()))
+    bestMatch = min(levenshteinDict, key=levenshteinDict.get)
+    return bestMatch
+
+
 def random_humanoid():
     while True:
         howmany = int(input("How many characters do you need?"))
-        language = str(input("Should we use ENG or Pl name of parameters?"))
         for _ in range(howmany):
             randomHumanoid = classes.RandomHumanoid(language)
             print(randomHumanoid)
@@ -133,7 +188,6 @@ def step_humanoid(bust="False"):
         name = step_humanoid_name()
         characterClass = step_humanoid_class()
         classMainStats = step_humanoid_classMainStats(characterClass)
-        language = str(input("Should we use ENG or Pl name of parameters?"))
         howmany = int(input("How many characters do you need?"))
         for _ in range(howmany):
             stepHumanoid = classes.StepHumanoid(race, name, characterClass,
@@ -147,12 +201,14 @@ def step_humanoid(bust="False"):
 def main_menu():
     while True:
         choiceMainMenu = int(input(f"""What would you do?:
-        1. {parameters.mainMenu[0]} 
-        2. {parameters.mainMenu[1]}
-        3. {parameters.mainMenu[2]}
-        4. {parameters.mainMenu[3]}
-        5. {parameters.mainMenu[4]}
-        6. {parameters.mainMenu[5]}
+        {parameters.mainMenu[0]} 
+        {parameters.mainMenu[1]}
+        {parameters.mainMenu[2]}
+        {parameters.mainMenu[3]}
+        {parameters.mainMenu[4]}
+        {parameters.mainMenu[5]}
+        {parameters.mainMenu[6]}
+        {parameters.mainMenu[7]}
         """))
 
         if (choiceMainMenu == 1):
@@ -166,6 +222,12 @@ def main_menu():
         elif (choiceMainMenu == 5):
             step_humanoid(bust=3)
         elif (choiceMainMenu == 6):
+            global language
+            language = "pl"
+            continue
+        elif (choiceMainMenu == 7):
+            save_to_file()
+        elif (choiceMainMenu == 8):
             break
         else:
             print("Please choose 1-6 option")
@@ -174,5 +236,6 @@ def main_menu():
 
 
 print(parameters.welcomeText)
-
+global language
+language = "eng"
 main_menu()

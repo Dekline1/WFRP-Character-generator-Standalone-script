@@ -5,6 +5,8 @@ import copy
 
 
 class RandomHumanoid:
+    instances = {}
+
     def __init__(self, language="eng"):
         self.language = language
         self.race = random.choice(
@@ -24,6 +26,11 @@ class RandomHumanoid:
         self.ip = parameters.humanoidRacesStats[self.race]["ip"]
         self.fp = random.choices(parameters.humanoidRacesStats[self.race]["fpValues"],
                                  parameters.humanoidRacesStats[self.race]["fpWeights"])[0]
+
+        RandomHumanoid.instances[self.simpleId] = [self.race, self.firstName, self.ws, self.bs,
+                                              self.s, self.t, self.ag, self.int, self.wp, self.fel,
+                                              self.a, self.w, self.sb, self.tb, self.m, self.mag,
+                                              self.ip, self.fp]
 
     @staticmethod
     def generate_main_stat_random():
@@ -67,15 +74,23 @@ class RandomHumanoid:
                     f" id:{self.simpleId}")
 
     def simple_id(self):
-        self.simpleId = ''.join([self.firstName[:3], self.race[:3], str(id(self))[:3]])
-        return self.simpleId
+        simpleId = ''.join([self.firstName[:parameters.simpleIdRules["lenName"]],
+                            self.race[:parameters.simpleIdRules["lenRace"]],
+                            str(random.randint(111, 999))])
+        while simpleId in RandomHumanoid.instances:
+            simpleId += str(random.randint(1, 9))
+        return simpleId
 
 
 class StepHumanoid:
+
+    instances = {}
+
     def __init__(self, race, name, characterClass, classMainStats, language="eng", bust="False"):
         self.language = language
         self.race = self.raceChoice(race)
         self.name = self.nameChoice(name, self.race)
+        self.simpleId = self.simple_id()
         self.randomStats = self.generate_main_stats_random()
         self.stats = parameters.stats
         self.characterClass = self.characterClassChoice(characterClass)
@@ -104,6 +119,11 @@ class StepHumanoid:
         self.ip = parameters.humanoidRacesStats[self.race]["ip"]
         self.fp = random.choices(parameters.humanoidRacesStats[self.race]["fpValues"],
                                  parameters.humanoidRacesStats[self.race]["fpWeights"])[0]
+
+        StepHumanoid.instances[self.simpleId] = [self.race, self.name, self.ws, self.bs,
+                                                   self.s, self.t, self.ag, self.int, self.wp, self.fel,
+                                                   self.a, self.w, self.sb, self.tb, self.m, self.mag,
+                                                   self.ip, self.fp]
 
     def raceChoice(self, race):
         if race is not None:
@@ -200,6 +220,7 @@ Main characteristics:
     ws:{self.ws}, bs:{self.bs}, s:{self.s}, t:{self.t}, ag:{self.ag}, int:{self.int}, wp:{self.wp}, fel:{self.fel}
 Second characteristics: 
     a:{self.a}, w:{self.w}, sb:{self.sb}, tb:{self.tb}, m:{self.m}, mag:{self.mag}, ip:{self.ip}, fp:{self.fp}
+id:{self.simpleId}
 """)
         else:
             return (f"""
@@ -211,6 +232,7 @@ Cechy główne:
     ww:{self.ws}, us:{self.bs}, k:{self.s}, odp:{self.t}, zr:{self.ag}, int:{self.int}, sw:{self.wp}, ogd:{self.fel}
 Cechy drugorzędne: 
     a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb}, sz:{self.m}, mag:{self.mag}, po:{self.ip}, p:{self.fp}
+id:{self.simpleId}
 """)
 
     @staticmethod
@@ -229,4 +251,11 @@ Cechy drugorzędne:
         randomStats.sort()
         return randomStats
 
+    def simple_id(self):
+        simpleId = ''.join([self.name[:parameters.simpleIdRules["lenName"]],
+                            self.race[:parameters.simpleIdRules["lenRace"]],
+                            str(random.randint(111, 999))])
+        while simpleId in StepHumanoid.instances:
+            simpleId += str(random.randint(1, 9))
+        return simpleId
 

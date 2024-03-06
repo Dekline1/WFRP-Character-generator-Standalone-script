@@ -2,16 +2,25 @@ welcomeText = """Welcome in WFRP 2ed character generator
 This app helps you generate all playable characters. 
 You can do it step by step, or make it totally random,
 according to WFRP base handbook. 
+
+Default language is english, you can set up polish in menu
+Domyślnym językiem jest angielski, możesz zmienić na polski w menu
 """
 
 
-mainMenu = ["Create humanoid - step by step ",
-            "Create humanoid - random",
-            "Create busted humanoid - step by step",
-            "Create double-busted humanoid - step by step",
-            "Create triple-busted humanoid - step by step",
-            "Exit"]
+mainMenu = ["1. Create humanoid - step by step",
+            "2. Create humanoid - random",
+            "3. Create busted humanoid - step by step",
+            "4. Create double-busted humanoid - step by step",
+            "5. Create triple-busted humanoid - step by step",
+            "6. Zmień język na polski [in progress]",
+            "7. Save to file",
+            "8. Exit"]
 
+simpleIdRules = {
+                "lenName" : 3,
+                "lenRace" : 2
+                }
 humanoidRacesStats = {
     "Human": {
         "race": "Human",
