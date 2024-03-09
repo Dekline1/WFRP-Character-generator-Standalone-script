@@ -157,7 +157,7 @@ bustersOtherStats = [5, 10, 15]
 
 
 
-"""
+
 
 racesTuple = "Human", "Elf", "Dwarf", "Halfing"
 
@@ -166,4 +166,4 @@ secondaryStatsTuple = "a", "w", "sb", "tb", "m", "mag", "ip", "fp"
 
 
 
-"""
+

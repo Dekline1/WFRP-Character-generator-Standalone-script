@@ -27,7 +27,7 @@ class RandomHumanoid:
         self.fp = random.choices(parameters.humanoidRacesStats[self.race]["fpValues"],
                                  parameters.humanoidRacesStats[self.race]["fpWeights"])[0]
 
-        RandomHumanoid.instances[self.simpleId] = [self.race, self.firstName, self.ws, self.bs,
+        RandomHumanoid.instances[self.simpleId] = [self.race, self.name, self.ws, self.bs,
                                               self.s, self.t, self.ag, self.int, self.wp, self.fel,
                                               self.a, self.w, self.sb, self.tb, self.m, self.mag,
                                               self.ip, self.fp]
@@ -54,24 +54,31 @@ class RandomHumanoid:
 
         self.firstName = fakeName.first_name()
         self.lastName = fakeName.last_name()
+        self.name = self.firstName + " " + self.lastName
 
-        return self.firstName, self.lastName
+        return self.name
 
     def __str__(self):
         if self.language in ("ENG", "Eng", "eng", "en", "e"):
-            return (f"Your random humanoid is: {self.race}, {self.firstName} {self.lastName}, \n"
-                    f"Main characteristics: ws:{self.ws}, bs:{self.bs}, s:{self.s}, t:{self.t},"
-                    f"ag:{self.ag}, int:{self.int}, wp:{self.wp}, fel:{self.fel}\n"
-                    f"Second characteristics: a:{self.a}, w:{self.w}, sb:{self.sb}, tb:{self.tb},"
-                    f" m:{self.m}, mag:{self.mag}, ip:{self.ip}, fp:{self.fp}\n"
-                    f" id:{self.simpleId}")
+            return (f"""
+Your random humanoid is: 
+    {self.race}, {self.firstName} {self.lastName}
+Main characteristics:
+    ws:{self.ws}, bs:{self.bs}, s:{self.s}, t:{self.t}, ag:{self.ag}, int:{self.int}, wp:{self.wp}, fel:{self.fel}
+Second characteristics:
+    a:{self.a}, w:{self.w}, sb:{self.sb}, tb:{self.tb}, m:{self.m}, mag:{self.mag}, ip:{self.ip}, fp:{self.fp}
+id:{self.simpleId}
+""")
         else:
-            return (f"Twój losowy humanoid to: {self.race}, {self.firstName} {self.lastName}, \n"
-                    f"Cechy główne: ww:{self.ws}, us:{self.bs}, k:{self.s}, odp:{self.t},"
-                    f"zr:{self.ag}, int:{self.int}, sw:{self.wp}, ogd:{self.fel}\n"
-                    f"Cechy drugorzędne: a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb},"
-                    f" sz:{self.m}, mag:{self.mag}, po:{self.ip}, p:{self.fp}\n"
-                    f" id:{self.simpleId}")
+            return (f"""
+Twój losowy humanoid to:
+    {self.race}, {self.firstName} {self.lastName}
+Cechy główne: 
+    ww:{self.ws}, us:{self.bs}, k:{self.s}, odp:{self.t}, zr:{self.ag}, int:{self.int}, sw:{self.wp}, ogd:{self.fel}
+Cechy drugorzędne: 
+    a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb}, sz:{self.m}, mag:{self.mag}, po:{self.ip}, p:{self.fp}
+id:{self.simpleId}
+""")
 
     def simple_id(self):
         simpleId = ''.join([self.firstName[:parameters.simpleIdRules["lenName"]],

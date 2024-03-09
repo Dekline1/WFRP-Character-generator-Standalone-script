@@ -15,49 +15,43 @@ def repeat():
     return repeat in ("tak", "t", "yes", "y")
 
 
-def show_results():
-    try:
-        if not classes.RandomHumanoid.instances:
-            print("No data in Random Humanoid instances")
-        else:
-            for key, value in classes.RandomHumanoid.instances.items():
-                print(key + ": " + ", ".join(map(str, value)))
-    except AttributeError:
-        print("No definition in Random Humanoid instances")
+def show_results(globalInstances):
+    if not globalInstances:
+        print("No data in current database")
+    else:
+        for key, value in globalInstances.items():
+            print(dunder_str_for_save(key,value))
 
-    try:
-        if not classes.StepHumanoid.instances:
-            print("No data in Step Humanoid instances")
-        else:
-            for key, value in classes.StepHumanoid.instances.items():
-                print(key + ": " + ", ".join(map(str, value)))
-    except AttributeError:
-        print("No definition in Step Humanoid instances")
-
-
+def dunder_str_for_save(key, value):
+    result = f"""
+Id:{key}
+Name:
+    {value[0]}, {value[1]} 
+Main characteristics:
+    ws:{value[2]}, bs:{value[3]}, s:{value[4]}, t:{value[5]}, ag:{value[6]}, int: {value[7]}, wp:{value[8]}, fel:{value[9]}
+Second characteristics:
+    a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
+    """
+    return result
 def save_to_file():
     globalInstances = classes.RandomHumanoid.instances.copy()
     globalInstances.update(classes.StepHumanoid.instances)
-
-
     print("Chosen character will be save in *.txt file")
-    show_results()
+    show_results(globalInstances)
     wait_a_moment()
     choice = str(input("Type [id] or save [a]: "))
     if choice.lower() != "a":
         bestMatch = check_id(choice, globalInstances)
         value = globalInstances[bestMatch]
-        print("You wrote: " + bestMatch + ": " + ", ".join(map(str, value)))
+        print("You wrote: " + bestMatch)
 
         with open("Characters.txt", 'a+') as file:
-            json.dump((bestMatch + ": " + ", ".join(map(str, value))), file)
-            file.write("\n")
+            file.write(dunder_str_for_save(bestMatch, value))
 
     else:
         with open("Characters.txt", 'a+') as file:
             for key, value in globalInstances.items():
-                json.dump((key + ": " + ", ".join(map(str, value))), file)
-                file.write('\n')
+                file.write(dunder_str_for_save(key, value))
 
 
 def check_id(choice, globalInstances):
