@@ -185,16 +185,16 @@ class StepHumanoid:
         if bust == 1:
             self.bustMainStats = parameters.busters["bustersMainStats"][0]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][0]
-            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"] or
-                                  parameters.humanoidCharacterClasses["Swordsman"]["class"] or
+            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
+                                  parameters.humanoidCharacterClasses["Swordsman"]["class"],
                                   parameters.humanoidCharacterClasses["Marksman"]["class"]]:
                 self.bustAtack = parameters.busters["busterAtack"][0]
                 self.bustWounds = parameters.busters["busterWounds"][0]
         elif bust == 2:
             self.bustMainStats = parameters.busters["bustersMainStats"][1]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][1]
-            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"] or
-                                  parameters.humanoidCharacterClasses["Swordsman"]["class"] or
+            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
+                                  parameters.humanoidCharacterClasses["Swordsman"]["class"],
                                   parameters.humanoidCharacterClasses["Marksman"]["class"]]:
                 self.bustAtack = parameters.busters["busterAtack"][1]
                 self.bustWounds = parameters.busters["busterWounds"][1]
@@ -203,8 +203,8 @@ class StepHumanoid:
         elif bust == 3:
             self.bustMainStats = parameters.busters["bustersMainStats"][2]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][2]
-            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"] or
-                                  parameters.humanoidCharacterClasses["Swordsman"]["class"] or
+            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
+                                  parameters.humanoidCharacterClasses["Swordsman"]["class"],
                                   parameters.humanoidCharacterClasses["Marksman"]["class"]]:
                 self.bustAtack = parameters.busters["busterAtack"][2]
                 self.bustWounds = parameters.busters["busterWounds"][2]
