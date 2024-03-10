@@ -24,7 +24,8 @@ def show_results(globalInstances):
             print(dunder_str_for_save(key,value))
 
 def dunder_str_for_save(key, value):
-    result = f"""
+    if language in ("ENG", "Eng", "eng", "en", "e"):
+        result = f"""
 Id:{key}
 Name:
     {value[0]}, {value[1]} 
@@ -33,11 +34,22 @@ Main characteristics:
 Second characteristics:
     a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
     """
+    else:
+        result = f"""
+Id:{key}
+Nazwa Postaci:
+    {value[0]}, {value[1]} 
+Cechy główne:
+    ww:{value[2]}, us:{value[3]}, k:{value[4]}, odp:{value[5]}, zr:{value[6]}, int: {value[7]}, sw:{value[8]}, ogd:{value[9]}
+Cechy drugorzędne:
+    a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
+    """
+
     return result
 def save_to_file():
     globalInstances = classes.RandomHumanoid.instances.copy()
     globalInstances.update(classes.StepHumanoid.instances)
-    print("Chosen character will be save in *.txt file")
+    print("Chosen character will be saved in *.txt file")
     show_results(globalInstances)
     wait_a_moment()
     choice = str(input("Type [id] or save [a]: "))
@@ -46,13 +58,14 @@ def save_to_file():
         value = globalInstances[bestMatch]
         print("You wrote: " + bestMatch)
 
-        with open("Characters.txt", 'a+') as file:
+        with open("Characters.txt", 'a+', encoding="utf-8") as file:
             file.write(dunder_str_for_save(bestMatch, value))
 
     else:
-        with open("Characters.txt", 'a+') as file:
+        with open("Characters.txt", 'a+', encoding="utf-8") as file:
             for key, value in globalInstances.items():
                 file.write(dunder_str_for_save(key, value))
+
 
 
 def check_id(choice, globalInstances):

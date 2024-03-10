@@ -76,7 +76,7 @@ Twój losowy humanoid to:
 Cechy główne: 
     ww:{self.ws}, us:{self.bs}, k:{self.s}, odp:{self.t}, zr:{self.ag}, int:{self.int}, sw:{self.wp}, ogd:{self.fel}
 Cechy drugorzędne: 
-    a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb}, sz:{self.m}, mag:{self.mag}, po:{self.ip}, p:{self.fp}
+    a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb}, sz:{self.m}, mag:{self.mag}, po:{self.ip}, ps:{self.fp}
 id:{self.simpleId}
 """)
 
@@ -238,7 +238,7 @@ Twoje rzuty 8 x 2k10 ( po odrzuceniu wyników poniżej 6)
 Cechy główne: 
     ww:{self.ws}, us:{self.bs}, k:{self.s}, odp:{self.t}, zr:{self.ag}, int:{self.int}, sw:{self.wp}, ogd:{self.fel}
 Cechy drugorzędne: 
-    a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb}, sz:{self.m}, mag:{self.mag}, po:{self.ip}, p:{self.fp}
+    a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb}, sz:{self.m}, mag:{self.mag}, po:{self.ip}, ps:{self.fp}
 id:{self.simpleId}
 """)
 
