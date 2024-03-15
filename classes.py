@@ -94,10 +94,6 @@ class StepHumanoid:
     instances = {}
 
     def __init__(self, race, name, characterClass, classMainStats, bust, language="eng"):
-        self.bustMainStats = 0
-        self.bustOtherStats = 0
-        self.bustAtack = 0
-        self.bustWounds = 0
         self.bust = bust
         self.characterClass = self.characterClassChoice(characterClass)
         self.buster()
@@ -186,6 +182,10 @@ class StepHumanoid:
 
 
     def buster(self):
+        self.bustMainStats = 0
+        self.bustOtherStats = 0
+        self.bustAtack = 0
+        self.bustWounds = 0
         if self.bust == 1:
             self.bustMainStats = parameters.busters["bustersMainStats"][0]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][0]
