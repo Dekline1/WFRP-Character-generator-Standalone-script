@@ -93,7 +93,7 @@ class StepHumanoid:
 
     instances = {}
 
-    def __init__(self, race, name, characterClass, classMainStats, language="eng", bust="False"):
+    def __init__(self, race, name, characterClass, classMainStats, language="eng", bust=0):
         self.language = language
         self.race = self.raceChoice(race)
         self.name = self.nameChoice(name, self.race)
@@ -101,9 +101,10 @@ class StepHumanoid:
         self.randomStats = self.generate_main_stats_random()
         self.stats = parameters.stats
         self.characterClass = self.characterClassChoice(characterClass)
+        self.buster(bust, characterClass)
         self.classStatsChoice(classMainStats)
         self.baseRandomStats = copy.copy(self.randomStats)
-        self.buster(bust, characterClass)
+
 
 
         for stat in self.classMainStats:
@@ -190,6 +191,9 @@ class StepHumanoid:
                                   parameters.humanoidCharacterClasses["Marksman"]["class"]]:
                 self.bustAtack = parameters.busters["busterAtack"][0]
                 self.bustWounds = parameters.busters["busterWounds"][0]
+            else:
+                self.bustAtack = 0
+                self.bustWounds = 0
         elif bust == 2:
             self.bustMainStats = parameters.busters["bustersMainStats"][1]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][1]
@@ -199,6 +203,7 @@ class StepHumanoid:
                 self.bustAtack = parameters.busters["busterAtack"][1]
                 self.bustWounds = parameters.busters["busterWounds"][1]
             else:
+                self.bustAtack = 0
                 self.bustWounds = parameters.busters["busterWounds"][0]
         elif bust == 3:
             self.bustMainStats = parameters.busters["bustersMainStats"][2]
@@ -209,6 +214,7 @@ class StepHumanoid:
                 self.bustAtack = parameters.busters["busterAtack"][2]
                 self.bustWounds = parameters.busters["busterWounds"][2]
             else:
+                self.bustAtack = 0
                 self.bustWounds = parameters.busters["busterWounds"][1]
         else:
             self.bustMainStats = 0

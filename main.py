@@ -190,7 +190,7 @@ def step_humanoid_classMainStats(characterClass):
     return classMainStats
 
 
-def step_humanoid(bust="False"):
+def step_humanoid(bust):
     while True:
         race = step_humanoid_race()
         name = step_humanoid_name()
@@ -220,7 +220,7 @@ def main_menu():
         """))
 
         if (choiceMainMenu == 1):
-            step_humanoid()
+            step_humanoid(bust=0)
         elif (choiceMainMenu == 2):
             random_humanoid()
         elif (choiceMainMenu == 3):
