@@ -93,19 +93,22 @@ class StepHumanoid:
 
     instances = {}
 
-    def __init__(self, race, name, characterClass, classMainStats, language="eng", bust=0):
+    def __init__(self, race, name, characterClass, classMainStats, bust, language="eng"):
+        self.bustMainStats = 0
+        self.bustOtherStats = 0
+        self.bustAtack = 0
+        self.bustWounds = 0
+        self.bust = bust
+        self.characterClass = self.characterClassChoice(characterClass)
+        self.buster()
         self.language = language
         self.race = self.raceChoice(race)
         self.name = self.nameChoice(name, self.race)
         self.simpleId = self.simple_id()
         self.randomStats = self.generate_main_stats_random()
         self.stats = parameters.stats
-        self.characterClass = self.characterClassChoice(characterClass)
-        self.buster(bust, characterClass)
         self.classStatsChoice(classMainStats)
         self.baseRandomStats = copy.copy(self.randomStats)
-
-
 
         for stat in self.classMainStats:
             setattr(self, stat, max(self.randomStats) + parameters.humanoidRacesStats[self.race][stat]
@@ -129,9 +132,9 @@ class StepHumanoid:
                                  parameters.humanoidRacesStats[self.race]["fpWeights"])[0]
 
         StepHumanoid.instances[self.simpleId] = [self.race, self.name, self.ws, self.bs,
-                                                   self.s, self.t, self.ag, self.int, self.wp, self.fel,
-                                                   self.a, self.w, self.sb, self.tb, self.m, self.mag,
-                                                   self.ip, self.fp]
+                                                 self.s, self.t, self.ag, self.int, self.wp, self.fel,
+                                                 self.a, self.w, self.sb, self.tb, self.m, self.mag,
+                                                 self.ip, self.fp, self.characterClass,]
 
     def raceChoice(self, race):
         if race is not None:
@@ -182,11 +185,11 @@ class StepHumanoid:
             self.classOtherStats = [stat for stat in parameters.stats if stat not in self.classMainStats]
 
 
-    def buster(self, bust, characterClass):
-        if bust == 1:
+    def buster(self):
+        if self.bust == 1:
             self.bustMainStats = parameters.busters["bustersMainStats"][0]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][0]
-            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
+            if self.characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
                                   parameters.humanoidCharacterClasses["Swordsman"]["class"],
                                   parameters.humanoidCharacterClasses["Marksman"]["class"]]:
                 self.bustAtack = parameters.busters["busterAtack"][0]
@@ -194,10 +197,10 @@ class StepHumanoid:
             else:
                 self.bustAtack = 0
                 self.bustWounds = 0
-        elif bust == 2:
+        elif self.bust == 2:
             self.bustMainStats = parameters.busters["bustersMainStats"][1]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][1]
-            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
+            if self.characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
                                   parameters.humanoidCharacterClasses["Swordsman"]["class"],
                                   parameters.humanoidCharacterClasses["Marksman"]["class"]]:
                 self.bustAtack = parameters.busters["busterAtack"][1]
@@ -205,10 +208,10 @@ class StepHumanoid:
             else:
                 self.bustAtack = 0
                 self.bustWounds = parameters.busters["busterWounds"][0]
-        elif bust == 3:
+        elif self.bust == 3:
             self.bustMainStats = parameters.busters["bustersMainStats"][2]
             self.bustOtherStats = parameters.busters["bustersOtherStats"][2]
-            if characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
+            if self.characterClass in [parameters.humanoidCharacterClasses["Warrior"]["class"],
                                   parameters.humanoidCharacterClasses["Swordsman"]["class"],
                                   parameters.humanoidCharacterClasses["Marksman"]["class"]]:
                 self.bustAtack = parameters.busters["busterAtack"][2]
@@ -216,11 +219,6 @@ class StepHumanoid:
             else:
                 self.bustAtack = 0
                 self.bustWounds = parameters.busters["busterWounds"][1]
-        else:
-            self.bustMainStats = 0
-            self.bustOtherStats = 0
-            self.bustAtack = 0
-            self.bustWounds = 0
 
     def __str__(self):
         if self.language in ("ENG", "Eng", "eng", "en", "e"):

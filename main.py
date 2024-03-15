@@ -24,8 +24,32 @@ def show_results(globalInstances):
             print(dunder_str_for_save(key,value))
 
 def dunder_str_for_save(key, value):
-    if language in ("ENG", "Eng", "eng", "en", "e"):
-        result = f"""
+    try:
+        if language in ("ENG", "Eng", "eng", "en", "e"):
+            result = f"""
+Id:{key}
+Name:
+    {value[0]}, {value[18]}, {value[1]} 
+Main characteristics:
+    ws:{value[2]}, bs:{value[3]}, s:{value[4]}, t:{value[5]}, ag:{value[6]}, int: {value[7]}, wp:{value[8]}, fel:{value[9]}
+Second characteristics:
+    a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
+    """
+        else:
+            result = f"""
+Id:{key}
+Nazwa Postaci:
+    {value[0]}, {value[18]}, {value[1]} 
+Cechy główne:
+    ww:{value[2]}, us:{value[3]}, k:{value[4]}, odp:{value[5]}, zr:{value[6]}, int: {value[7]}, sw:{value[8]}, ogd:{value[9]}
+Cechy drugorzędne:
+    a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
+    """
+
+
+    except IndexError:
+        if language in ("ENG", "Eng", "eng", "en", "e"):
+            result = f"""
 Id:{key}
 Name:
     {value[0]}, {value[1]} 
@@ -33,9 +57,10 @@ Main characteristics:
     ws:{value[2]}, bs:{value[3]}, s:{value[4]}, t:{value[5]}, ag:{value[6]}, int: {value[7]}, wp:{value[8]}, fel:{value[9]}
 Second characteristics:
     a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
+
     """
-    else:
-        result = f"""
+        else:
+            result = f"""
 Id:{key}
 Nazwa Postaci:
     {value[0]}, {value[1]} 
@@ -44,7 +69,6 @@ Cechy główne:
 Cechy drugorzędne:
     a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
     """
-
     return result
 def save_to_file():
     globalInstances = classes.RandomHumanoid.instances.copy()
@@ -199,7 +223,7 @@ def step_humanoid(bust):
         howmany = int(input("How many characters do you need?"))
         for _ in range(howmany):
             stepHumanoid = classes.StepHumanoid(race, name, characterClass,
-                                                classMainStats, language, bust)
+                                                classMainStats, bust, language)
             print(stepHumanoid)
         if not repeat():
             wait_a_moment()
