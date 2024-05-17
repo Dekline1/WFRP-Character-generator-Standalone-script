@@ -2,9 +2,7 @@ import time
 import classes
 import parameters
 from Levenshtein import distance as levenshtein
-import json
 
-#recover repo 2
 
 def wait_a_moment(times=2):
     for _ in range(times):
@@ -12,16 +10,19 @@ def wait_a_moment(times=2):
 
 
 def repeat():
-    repeat = input("Repeat?").strip().lower()
-    return repeat in ("tak", "t", "yes", "y")
+    repeatAsk = input("Repeat?").strip().lower()
+    return repeatAsk in ("tak", "t", "yes", "y")
 
 
 def show_results(globalInstances):
     if not globalInstances:
         print("No data in current database")
+        return False
     else:
         for key, value in globalInstances.items():
-            print(dunder_str_for_save(key,value))
+            print(dunder_str_for_save(key, value))
+            return True
+
 
 def dunder_str_for_save(key, value):
     try:
@@ -46,7 +47,6 @@ Cechy drugorzędne:
     a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
     """
 
-
     except IndexError:
         if language in ("ENG", "Eng", "eng", "en", "e"):
             result = f"""
@@ -70,26 +70,28 @@ Cechy drugorzędne:
     a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
     """
     return result
+
+
 def save_to_file():
     globalInstances = classes.RandomHumanoid.instances.copy()
     globalInstances.update(classes.StepHumanoid.instances)
-    print("Chosen character will be saved in *.txt file")
-    show_results(globalInstances)
+    results = show_results(globalInstances)
     wait_a_moment()
-    choice = str(input("Type [id] or save [a]: "))
-    if choice.lower() != "a":
-        bestMatch = check_id(choice, globalInstances)
-        value = globalInstances[bestMatch]
-        print("You wrote: " + bestMatch)
+    if results:
+        print("Chosen character will be saved in *.txt file")
+        choice = str(input("Type [id] or save [a]: "))
+        if choice.lower() != "a":
+            bestMatch = check_id(choice, globalInstances)
+            value = globalInstances[bestMatch]
+            print("You wrote: " + bestMatch)
 
-        with open("Characters.txt", 'a+', encoding="utf-8") as file:
-            file.write(dunder_str_for_save(bestMatch, value))
+            with open("Characters.txt", 'a+', encoding="utf-8") as file:
+                file.write(dunder_str_for_save(bestMatch, value))
 
-    else:
-        with open("Characters.txt", 'a+', encoding="utf-8") as file:
-            for key, value in globalInstances.items():
-                file.write(dunder_str_for_save(key, value))
-
+        else:
+            with open("Characters.txt", 'a+', encoding="utf-8") as file:
+                for key, value in globalInstances.items():
+                    file.write(dunder_str_for_save(key, value))
 
 
 def check_id(choice, globalInstances):
